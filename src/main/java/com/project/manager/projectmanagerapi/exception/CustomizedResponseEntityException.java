@@ -28,7 +28,15 @@ extends ResponseEntityExceptionHandler{
 		ExceptionResponse expResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity(expResponse, HttpStatus.NOT_FOUND);
 	}
-	
+
+	@ExceptionHandler(ProjectNotFoundException.class) //giving whaterver exp we want to handle
+	public final ResponseEntity<Object> handleProjectNotFoundException(Exception ex, WebRequest request) throws Exception {
+		ExceptionResponse expResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity(expResponse, HttpStatus.NOT_FOUND);
+	}
+
+
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(
 			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {

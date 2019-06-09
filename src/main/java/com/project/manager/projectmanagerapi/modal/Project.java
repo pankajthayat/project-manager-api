@@ -15,18 +15,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name = "PROJECTS")
 public class Project {
 
 	@Id
 	@GeneratedValue
-	@JsonIgnore
 	private Long id;
 
 	@NotBlank(message = "project can not be blank")
 	private String project;
 	
-	@FutureOrPresent(message = "start date can not be in past")
+	//@FutureOrPresent(message = "start date can not be in past")
 	private Date startDate;
 
 

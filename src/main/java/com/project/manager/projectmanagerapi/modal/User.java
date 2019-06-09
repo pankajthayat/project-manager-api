@@ -28,7 +28,6 @@ public class User {
 	
 	@Id
 	@GeneratedValue
-	@JsonIgnore
 	private Long id;
 	
 	@Size(min=1, message = "please enter last name")
