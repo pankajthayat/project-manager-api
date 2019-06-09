@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.project.manager.projectmanagerapi.exception.AlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,20 +27,19 @@ public class UserController {
 	UserRepository userRepository;
 	
 	@PostMapping("/add")
-	public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws Exception{
-		System.out.println("post mapping : "+ userRepository.findByEmployeeId(user.getEmployeeId()));
+	public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws AlreadyExistException, Exception{
 		if(userRepository.findByEmployeeId(user.getEmployeeId())!= null)
-			throw new RuntimeException("user already exist");
+			throw new AlreadyExistException("user already exist with employee Id : "+user.getEmployeeId());
 		return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(user));
 		
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/getAll")
 	public List<User> getAlluser(){
 		return userRepository.findAll();
 	}
 	
-	@GetMapping("/{employeeId}")
+	@GetMapping("get/{employeeId}")
 	public ResponseEntity<User> getUser(@PathVariable Long employeeId){
 		User user =userRepository.findByEmployeeId(employeeId);
 		if(user == null)
@@ -56,16 +56,20 @@ public class UserController {
 //
 //	}
     @PutMapping("/update")
-	public ResponseEntity<User> updateUser(User user){
+	public ResponseEntity<User> updateUser(@Valid @RequestBody  User user) throws UserNotFoundException{
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.updateUser(user));
 	}
 
-	public ResponseEntity deleteUser(User user){
-		try {
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(userRepository.deleteByEmployeeId(user.getEmployeeId()));
-		} catch (Exception ex){
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-		}
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity deleteUser(@PathVariable  Long id){
+//		try {
+			if(userRepository.findById(id)==null)
+				throw new UserNotFoundException("User not present with id : "+id);
+			userRepository.deleteById(id);
+			return new ResponseEntity(HttpStatus.ACCEPTED);
+//		} catch (Exception ex){
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+//		}
 	}
 
 }

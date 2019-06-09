@@ -2,7 +2,6 @@ package com.project.manager.projectmanagerapi.controller;
 
 import com.project.manager.projectmanagerapi.exception.ProjectNotFoundException;
 import com.project.manager.projectmanagerapi.exception.TaskNotFoundException;
-import com.project.manager.projectmanagerapi.modal.Project;
 import com.project.manager.projectmanagerapi.modal.Task;
 import com.project.manager.projectmanagerapi.repository.TaskRepository;
 import com.project.manager.projectmanagerapi.service.TaskService;
@@ -19,9 +18,12 @@ import java.util.Optional;
 @CrossOrigin(origins = {"*"})
 @RequestMapping("task")
 public class TaskController {
-    
+
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private TaskService taskService;
 
     @PostMapping("/add")
     public ResponseEntity<Task> addTask(@Valid @RequestBody Task task) throws Exception{
@@ -58,6 +60,5 @@ public class TaskController {
             throw new TaskNotFoundException("task does not exit with id : "+id);
         return ResponseEntity.status(HttpStatus.FOUND).body(task);
     }
-
 
 }

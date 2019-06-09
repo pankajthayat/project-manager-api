@@ -12,7 +12,7 @@ import com.project.manager.projectmanagerapi.modal.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
   User findByEmployeeId(Long employeeId);
-  User deleteByEmployeeId(Long employeeId);
+  void deleteByEmployeeId(Long employeeId);
 
 //
 //  @Modifying(clearAutomatically = true)

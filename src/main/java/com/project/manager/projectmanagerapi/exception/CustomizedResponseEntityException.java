@@ -35,6 +35,11 @@ extends ResponseEntityExceptionHandler{
 		return new ResponseEntity(expResponse, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(AlreadyExistException.class) //giving whaterver exp we want to handle
+	public final ResponseEntity<Object> handleAlreadyExistException(Exception ex, WebRequest request) throws Exception {
+		ExceptionResponse expResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity(expResponse, HttpStatus.BAD_REQUEST);
+	}
 
 
 	@Override
