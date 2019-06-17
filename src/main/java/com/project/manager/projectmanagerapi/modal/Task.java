@@ -2,8 +2,7 @@ package com.project.manager.projectmanagerapi.modal;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -11,12 +10,21 @@ import java.util.Date;
 public class Task {
 
     @Id
-    private Long id;
-    private String project;
+    @GeneratedValue
+    @Column(name = "task_id")
+    private Long taskId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PROJECT_ID")
+    private Project project;
     private  String task;
     private Integer priority;
-    private String parentTask;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PARENT_ID")
+    private ParentTask parentTask;
     private Date startDate;
     private Date endDate;
-    private String user;
+
+    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)
+    private User user;
 }

@@ -2,7 +2,6 @@ package com.project.manager.projectmanagerapi.controller;
 
 import com.project.manager.projectmanagerapi.exception.ProjectNotFoundException;
 import com.project.manager.projectmanagerapi.modal.Project;
-import com.project.manager.projectmanagerapi.modal.User;
 import com.project.manager.projectmanagerapi.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,14 +40,14 @@ public class ProjectController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Project>> getAllProjects(){
-        return ResponseEntity.status(HttpStatus.FOUND).body(projectRepository.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(projectRepository.findAll());
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Optional<Project>> getProject(@PathVariable Long id){
         if(!projectRepository.findById(id).isPresent())
             throw new ProjectNotFoundException("Project not found with id : "+id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(projectRepository.findById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(projectRepository.findById(id));
     }
 
 }

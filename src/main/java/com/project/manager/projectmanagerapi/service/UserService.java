@@ -20,7 +20,7 @@ public class UserService {
 //	}
 
     public User updateUser(User user) throws UserNotFoundException{
-        Optional<User> oldUser = userRepository.findById(user.getId());
+        Optional<User> oldUser = userRepository.findById(user.getUserId());
         if(!oldUser.isPresent())
             throw new UserNotFoundException("user not found");
         oldUser.get().setFirstName(user.getFirstName());

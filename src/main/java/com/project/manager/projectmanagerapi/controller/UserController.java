@@ -55,9 +55,9 @@ public class UserController {
 //						);
 //
 //	}
-    @PutMapping("/update")
+    @PostMapping("/update")
 	public ResponseEntity<User> updateUser(@Valid @RequestBody  User user) throws UserNotFoundException{
-		return ResponseEntity.status(HttpStatus.CREATED).body(userService.updateUser(user));
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.updateUser(user));
 	}
 
 	@DeleteMapping("/delete/{id}")

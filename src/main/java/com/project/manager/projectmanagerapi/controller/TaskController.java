@@ -45,7 +45,7 @@ public class TaskController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Task>> getAllProjects(){
-        return ResponseEntity.status(HttpStatus.FOUND).body(taskRepository.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(taskRepository.findAll());
     }
 
     @GetMapping("/")
@@ -58,7 +58,7 @@ public class TaskController {
         Optional<Task> task = taskRepository.findById(id);
         if(task == null)
             throw new TaskNotFoundException("task does not exit with id : "+id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(task);
+        return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 
 }
