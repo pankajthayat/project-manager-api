@@ -37,9 +37,13 @@ public class User {
 
 
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "PROJECT_ID")
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "PROJECT_ID")
+//	private Project project;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Project project;
+
 
 //	@OneToOne(cascade = CascadeType.ALL)
 //	@JoinColumn(name = "task_id", referencedColumnName = "task_id")

@@ -28,8 +28,12 @@ public class Project {
 	private Date startDate;
 
 
-	@OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
-	private User manager;
+//	@OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
+//	private User manager;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "USER_ID")
+	private User user;
 
 	@OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
 	private Task task;
