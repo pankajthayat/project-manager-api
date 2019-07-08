@@ -35,22 +35,9 @@ public class User {
 	private Long employeeId;
 
 
-
-
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "PROJECT_ID")
-//	private Project project;
-
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Project project;
 
-
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "task_id", referencedColumnName = "task_id")
-@OneToOne(cascade = CascadeType.ALL)
-@JoinColumn(name = "TASK_ID")
-	private Task task;
-//
 //	@JsonIgnore
 //	@CreationTimestamp
 //	@Temporal(TemporalType.TIMESTAMP)
